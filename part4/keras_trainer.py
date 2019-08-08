@@ -16,7 +16,7 @@ class PrintWeights(tf.keras.callbacks.Callback):
         print(self.model.get_weights())
         print('')
 
-model.compile(loss='categorical_crossentropy', optimizer=tf.keras.optimizers.SGD(lr=0.01))
+model.compile(loss='categorical_crossentropy', optimizer=tf.keras.optimizers.SGD(lr=0.1))
 
 x_train = [-5, 3, 7, -1]
 y_train = np.array([[1, 0], [0, 1], [0, 1], [1, 0]])

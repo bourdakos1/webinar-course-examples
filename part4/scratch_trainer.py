@@ -154,8 +154,8 @@ class Model:
         return (dw1,dw2,dw3,dw4,dw5,dw6, db1,db2,db3,db4)
 
 
-    def fit(self, x_train, y_train, epochs=5000):
-        for step in range(0, 5000):
+    def fit(self, x_train, y_train, epochs=5000, lr=0.01):
+        for _ in range(0, 5000):
             sum_dw1 = 0
             sum_dw2 = 0
             sum_dw3 = 0
@@ -184,17 +184,17 @@ class Model:
                 sum_db3 = sum_db3 + db3
                 sum_db4 = sum_db4 + db4
             
-            self.weights[0][0][0] = self.weights[0][0][0] - sum_dw1 / len(x_train)
-            self.weights[0][0][1] = self.weights[0][0][1] - sum_dw2 / len(x_train)
-            self.weights[2][0][0] = self.weights[2][0][0] - sum_dw3 / len(x_train)
-            self.weights[2][0][1] = self.weights[2][0][1] - sum_dw4 / len(x_train)
-            self.weights[2][1][0] = self.weights[2][1][0] - sum_dw5 / len(x_train)
-            self.weights[2][1][1] = self.weights[2][1][1] - sum_dw6 / len(x_train)
+            self.weights[0][0][0] = self.weights[0][0][0] - lr * sum_dw1 / len(x_train)
+            self.weights[0][0][1] = self.weights[0][0][1] - lr * sum_dw2 / len(x_train)
+            self.weights[2][0][0] = self.weights[2][0][0] - lr * sum_dw3 / len(x_train)
+            self.weights[2][0][1] = self.weights[2][0][1] - lr * sum_dw4 / len(x_train)
+            self.weights[2][1][0] = self.weights[2][1][0] - lr * sum_dw5 / len(x_train)
+            self.weights[2][1][1] = self.weights[2][1][1] - lr * sum_dw6 / len(x_train)
 
-            self.weights[1][0] = self.weights[1][0] - sum_db1 / len(x_train)
-            self.weights[1][1] = self.weights[1][1] - sum_db2 / len(x_train)
-            self.weights[3][0] = self.weights[3][0] - sum_db3 / len(x_train)
-            self.weights[3][1] = self.weights[3][1] - sum_db4 / len(x_train)
+            self.weights[1][0] = self.weights[1][0] - lr * sum_db1 / len(x_train)
+            self.weights[1][1] = self.weights[1][1] - lr * sum_db2 / len(x_train)
+            self.weights[3][0] = self.weights[3][0] - lr * sum_db3 / len(x_train)
+            self.weights[3][1] = self.weights[3][1] - lr * sum_db4 / len(x_train)
             
     
 
@@ -206,7 +206,7 @@ model.add(units=2, input_shape=1, activation='relu')
 model.add(units=2, activation='softmax')
 model.compile()
 
-model.fit(x_train, y_train, epochs=5000)
+model.fit(x_train, y_train, epochs=5000, lr=0.1)
 
 print('{:f}, {:f}'.format(*model.predict(-8)))
 print('{:f}, {:f}'.format(*model.predict(1)))
