@@ -103,13 +103,18 @@ const App = () => {
     })
 
     const best = tf.tidy(() => {
+      // Pass our batch of images through our model.
       const predictions = model.predict(batched).dataSync()
+
+      // Take the `argMax` of our predictions. `argMax` gives us the index of
+      // the largest value. In this case, our class with the highest score.
       return tf
         .tensor1d(predictions)
         .argMax()
         .dataSync()
     })
 
+    // Set the prediction state variable to our results.
     setPrediction(best)
   }, [model])
   //////////////////////////////////////////////////////////////////////////////
